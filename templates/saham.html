@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><title>Prediksi Saham</title></head>
+<body>
+<h3>Prediksi Harga Saham</h3>
+<input id="symbol" type="text" placeholder="Masukkan simbol saham">
+<button onclick="predict()">Prediksi</button>
+<p>Hasil: <span id="result"></span></p>
+<script>
+async function predict() {
+  const symbol = document.getElementById('symbol').value;
+  const response = await fetch('/api/predict-stock', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({symbol})
+  });
+  const data = await response.json();
+  document.getElementById('result').innerText =
+    data.symbol + ' : ' + data.predicted_price;
+}
+</script>
+</body>
+</html>

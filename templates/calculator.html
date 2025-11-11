@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head><title>Kalkulator Logika</title></head>
+<body>
+<h3>Kalkulator Logika</h3>
+<input id="a" type="number" min="0" max="1" value="0">
+<select id="operator">
+  <option>AND</option>
+  <option>OR</option>
+  <option>XOR</option>
+</select>
+<input id="b" type="number" min="0" max="1" value="0">
+<button onclick="calculate()">Hitung</button>
+<p>Hasil: <span id="result"></span></p>
+<script>
+async function calculate() {
+  const a = document.getElementById('a').value;
+  const b = document.getElementById('b').value;
+  const operator = document.getElementById('operator').value;
+  const response = await fetch('/api/calculator', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({a, b, operator})
+  });
+  const data = await response.json();
+  document.getElementById('result').innerText = data.result;
+}
+</script>
+</body>
+</html>
